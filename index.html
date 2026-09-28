@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老街味道 | 正宗家常菜，人均30吃到撑</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, "Microsoft YaHei", sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 导航 */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 12px 0;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #555;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+
+        /* 英雄区 */
+        .hero {
+            margin-top: 60px;
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                        url('https://images.unsplash.com/photo-1504674900247-0877f9b0a574?w=1200') center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px 80px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(231,76,60,0); }
+        }
+
+        /* 卖点区 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .feature-card .icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            color: #e74c3c;
+            margin-bottom: 8px;
+        }
+
+        /* 招牌菜 */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            background: white;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 15px;
+        }
+
+        .menu-info h4 {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .menu-info .price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .menu-info .old-price {
+            text-decoration: line-through;
+            color: #aaa;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        /* 优惠横幅 */
+        .promo {
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .promo h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .promo p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .promo-code {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 2px dashed white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        /* 评价 */
+        .reviews {
+            background: #f8f9fa;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .review-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .stars {
+            color: #f39c12;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .review-card p {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .reviewer {
+            font-weight: bold;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* 联系 */
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-info p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .contact-info .highlight {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        /* 底部 */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* 浮动按钮 */
+        .floating-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #e74c3c;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(231,76,60,0.5);
+            z-index: 999;
+            transition: transform 0.3s;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.15);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 16px; }
+            .features { grid-template-columns: 1fr; margin-top: 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航 -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="logo">🍜 老街味道</div>
+            <div class="nav-links">
+                <a href="#menu">招牌菜</a>
+                <a href="#promo">优惠</a>
+                <a href="#reviews">评价</a>
+                <a href="#contact">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主视觉 -->
+    <section class="hero">
+        <h1>正宗川湘家常菜</h1>
+        <p>人均30元吃到撑 · 现炒现做 · 拒绝预制菜</p>
+        <a href="#contact" class="cta-btn">📞 立即订座</a>
+    </section>
+
+    <!-- 卖点 -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="icon">🔥</div>
+            <h3>现炒现做</h3>
+            <p>拒绝预制菜，每道菜出锅不超过10分钟</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">💰</div>
+            <h3>人均30元</h3>
+            <p>丰俭由人，学生党打工人都能吃得起</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">⚡</div>
+            <h3>上菜飞快</h3>
+            <p>下单后15分钟内上齐，赶时间也不怕</p>
+        </div>
+    </section>
+
+    <!-- 招牌菜 -->
+    <section class="section" id="menu">
+        <h2 class="section-title">🔥 招牌必点</h2>
+        <p class="section-subtitle">吃过的人都说回头客</p>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?w=400" alt="红烧肉">
+                <div class="menu-info">
+                    <h4>秘制红烧肉</h4>
+                    <div><span class="price">¥38</span><span class="old-price">¥48</span></div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=400" alt="麻婆豆腐">
+                <div class="menu-info">
+                    <h4>招牌麻婆豆腐</h4>
+                    <div><span class="price">¥18</span><span class="old-price">¥25</span></div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1582450871972-ab5ca641643d?w=400" alt="口水鸡">
+                <div class="menu-info">
+                    <h4>口水鸡</h4>
+                    <div><span class="price">¥32</span><span class="old-price">¥40</span></div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?w=400" alt="干锅牛蛙">
+                <div class="menu-info">
+                    <h4>干锅牛蛙</h4>
+                    <div><span class="price">¥58</span><span class="old-price">¥68</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 优惠 -->
+    <section class="promo" id="promo">
+        <h2>🎉 新客专享福利</h2>
+        <p>到店出示此页面，即可享受以下优惠</p>
+        <div class="promo-code" id="promoCode">LAOJIE88</div>
+        <p style="margin-top:15px; font-size:16px;">满100减20 · 两人同行一人免单（限工作日）</p>
+    </section>
+
+    <!-- 评价 -->
+    <section class="section reviews" id="reviews">
+        <h2 class="section-title">💬 食客说真话</h2>
+        <p class="section-subtitle">大众点评4.8分 · 5000+真实评价</p>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"红烧肉绝了！肥而不腻，入口即化，比我家楼下那家强太多了。"</p>
+                <div class="reviewer">— 大众点评用户 · 已消费3次</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"上菜速度真的快，下班过来不用等，人均30吃到撑，打工人福音！"</p>
+                <div class="reviewer">— 美团用户 · 已消费8次</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"老板人实在，分量给得足，味道正宗，带朋友来面子上有！"</p>
+                <div class="reviewer">— 抖音探店用户</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系 -->
+    <section class="section" id="contact">
+        <h2 class="section-title">📍 找到我们</h2>
+        <p class="section-subtitle">随时欢迎您的光临</p>
+        <div class="contact-info">
+            <p>📍 <strong>地址：</strong>XX市XX区老街巷子128号（近地铁2号线老街站B口）</p>
+            <p>📞 <strong>订座电话：</strong><span class="highlight">138-xxxx-xxxx</span></p>
+            <p>🕐 <strong>营业时间：</strong>10:00 - 22:00（全年无休）</p>
+            <p style="margin-top:20px;">
+                <a href="tel:138xxxxxxx" class="cta-btn" style="padding:12px 30px; font-size:16px;">📞 一键拨号订座</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer>
+        <p>© 2024 老街味道 · 用心做好每一道菜</p>
+        <p style="margin-top:8px; opacity:0.7; font-size:14px;">本页面仅用于展示，实际菜品以到店为准</p>
+    </footer>
+
+    <!-- 浮动拨号 -->
+    <a href="tel:138xxxxxxx" class="floating-btn" title="立即订座">📞</a>
+
+    <script>
+        // 优惠码点击复制
+        document.getElementById('promoCode').addEventListener('click', function() {
+            const code = this.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const original = this.textContent;
+                this.textContent = '✅ 已复制！';
+                setTimeout(() => { this.textContent = original; }, 2000);
+            }).catch(() => {
+                alert('优惠码：' + code + '（请手动复制）');
+            });
+        });
+
+        // 滚动时导航栏阴影加深
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.15)';
+            } else {
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // 简单统计：按钮点击
+        document.querySelectorAll('.cta-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                console.log('CTA clicked:', btn.textContent.trim());
+            });
+        });
+    </script>
+
+</body>
+</html>

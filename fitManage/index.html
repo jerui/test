@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>健身房数字化 · 后台管理</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- 侧边栏 -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">💪</div>
+      <span class="brand-text">健身房<span>后台管理</span></span>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-group-title">主导航</div>
+
+      <div class="menu-item active" data-page="dashboard">
+        <div class="menu-icon">📊</div>
+        <span class="menu-text">数据概览</span>
+      </div>
+      <div class="menu-item" data-page="orders">
+        <div class="menu-icon">🎫</div>
+        <span class="menu-text">课程预约</span>
+        <span class="menu-badge">8</span>
+      </div>
+      <div class="menu-item" data-page="products">
+        <div class="menu-icon">🏋️</div>
+        <span class="menu-text">私教管理</span>
+      </div>
+      <div class="menu-item" data-page="members">
+        <div class="menu-icon">👥</div>
+        <span class="menu-text">会员管理</span>
+      </div>
+
+      <div class="menu-group-title">运营</div>
+
+      <div class="menu-item" data-page="marketing">
+        <div class="menu-icon">🎯</div>
+        <span class="menu-text">营销活动</span>
+      </div>
+      <div class="menu-item" data-page="settings">
+        <div class="menu-icon">⚙️</div>
+        <span class="menu-text">场馆设置</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="menu-item" onclick="showToast('已退出登录')">
+        <div class="menu-icon">🚪</div>
+        <span class="menu-text">退出登录</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <div class="main">
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" placeholder="搜索会员、课程、教练...">
+      </div>
+
+      <div class="topbar-actions">
+        <button class="top-btn" onclick="showToast('暂无新消息')">🔔<span class="dot"></span></button>
+        <button class="top-btn" onclick="showToast('系统运行正常')">⚙️</button>
+        <div class="user-info">
+          <div class="avatar">馆</div>
+          <div>
+            <div class="user-name">馆长</div>
+            <div class="user-role">PowerFit · 超级管理员</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 内容区 -->
+    <main class="content">
+
+      <!-- 数据概览 -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>数据概览</h2>
+            <p>实时掌握场馆运营状况</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline">导出报表</button>
+            <button class="btn btn-primary" onclick="showToast('数据已刷新')">🔄 刷新</button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon orange">💰</div>
+              <span class="stat-trend up">↑ 18.3%</span>
+            </div>
+            <div class="stat-value">¥56,800</div>
+            <div class="stat-label">本月营收</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon blue">🎫</div>
+              <span class="stat-trend up">↑ 12.7%</span>
+            </div>
+            <div class="stat-value">186</div>
+            <div class="stat-label">今日到馆人次</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon green">👥</div>
+              <span class="stat-trend up">↑ 5.2%</span>
+            </div>
+            <div class="stat-value">1,203</div>
+            <div class="stat-label">有效会员数</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon purple">⚠️</div>
+              <span class="stat-trend down">↓ 23人</span>
+            </div>
+            <div class="stat-value">47</div>
+            <div class="stat-label">即将到期会员</div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h4>近7天到馆人次趋势</h4>
+            <div class="chart-placeholder" id="barChart"></div>
+          </div>
+          <div class="chart-card">
+            <h4>课程类型占比</h4>
+            <div class="donut-wrap">
+              <div class="donut"></div>
+              <div class="donut-center">
+                <div class="num">186</div>
+                <div class="lbl">今日人次</div>
+              </div>
+            </div>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#ff6a13"></span>力量训练 35%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ffb347"></span>团操课 28%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#00c878"></span>私教课 22%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:rgba(255,255,255,0.15)"></span>瑜伽/拉伸 15%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar">
+            <h4>今日预约</h4>
+            <div class="table-tools">
+              <button class="btn btn-outline btn-sm" onclick="navigateTo('orders')">查看全部</button>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>预约号</th><th>会员</th><th>课程/教练</th><th>类型</th><th>状态</th><th>时间</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#BK20261009001</td><td>张同学</td><td>胸肩臂 · 王教练</td><td>私教</td><td><span class="tag tag-success">已签到</span></td><td>14:00-15:00</td></tr>
+              <tr><td>#BK20261009002</td><td>李女士</td><td>燃脂搏击操 · 陈教练</td><td>团操</td><td><span class="tag tag-success">已签到</span></td><td>14:30-15:30</td></tr>
+              <tr><td>#BK20261009003</td><td>赵先生</td><td>背部塑形 · 刘教练</td><td>私教</td><td><span class="tag tag-warning">未签到</span></td><td>15:00-16:00</td></tr>
+              <tr><td>#BK20261009004</td><td>孙小姐</td><td>流瑜伽 · 林教练</td><td>团操</td><td><span class="tag tag-info">进行中</span></td><td>15:30-16:30</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 课程预约 -->
+      <section class="page" id="page-orders">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>课程预约</h2>
+            <p>管理所有团操课与私教课的预约情况</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline">筛选</button>
+            <button class="btn btn-primary" onclick="showToast('新增预约功能待开发')">+ 新增预约</button>
+          </div>
+        </div>
+
+        <div class="stats-grid four">
+          <div class="stat-card"><div class="stat-value">186</div><div class="stat-label">今日到馆</div></div>
+          <div class="stat-card"><div class="stat-value">8</div><div class="stat-label">待签到</div></div>
+          <div class="stat-card"><div class="stat-value">24</div><div class="stat-label">今日课程数</div></div>
+          <div class="stat-card"><div class="stat-value">92%</div><div class="stat-label">签到率</div></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar"><h4>预约列表</h4></div>
+          <table>
+            <thead>
+              <tr><th>预约号</th><th>会员</th><th>课程</th><th>教练</th><th>类型</th><th>状态</th><th>时间</th><th>操作</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#BK20261009001</td><td>张同学</td><td>胸肩臂训练</td><td>王教练</td><td>私教</td><td><span class="tag tag-success">已签到</span></td><td>14:00</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+              <tr><td>#BK20261009002</td><td>李女士</td><td>燃脂搏击操</td><td>陈教练</td><td>团操</td><td><span class="tag tag-success">已签到</span></td><td>14:30</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+              <tr><td>#BK20261009003</td><td>赵先生</td><td>背部塑形</td><td>刘教练</td><td>私教</td><td><span class="tag tag-warning">未签到</span></td><td>15:00</td><td><button class="btn btn-primary btn-sm" onclick="showToast('已签到')">签到</button></td></tr>
+              <tr><td>#BK20261009004</td><td>孙小姐</td><td>流瑜伽</td><td>林教练</td><td>团操</td><td><span class="tag tag-info">进行中</span></td><td>15:30</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+              <tr><td>#BK20261009005</td><td>周先生</td><td>腿部力量</td><td>王教练</td><td>私教</td><td><span class="tag tag-danger">已取消</span></td><td>16:00</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+              <tr><td>#BK20261009006</td><td>吴女士</td><td>核心训练</td><td>陈教练</td><td>私教</td><td><span class="tag tag-success">已签到</span></td><td>16:30</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 私教管理 -->
+      <section class="page" id="page-products">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>私教管理</h2>
+            <p>管理教练团队与私教课程</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('新增教练功能待开发')">+ 新增教练</button>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🧑‍🏫</div>
+              <div><h5>王教练</h5><p>力量训练 · 5年经验</p></div>
+            </div>
+            <span class="tag tag-success">在岗</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">48节</div><div class="l">本周排课</div></div>
+              <div class="meta-item"><div class="v">4.9</div><div class="l">评分</div></div>
+              <div class="meta-item"><div class="v">86人</div><div class="l">服务会员</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🧑‍🏫</div>
+              <div><h5>陈教练</h5><p>团操/有氧 · 3年经验</p></div>
+            </div>
+            <span class="tag tag-success">在岗</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">32节</div><div class="l">本周排课</div></div>
+              <div class="meta-item"><div class="v">4.8</div><div class="l">评分</div></div>
+              <div class="meta-item"><div class="v">120人</div><div class="l">服务会员</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🧑‍🏫</div>
+              <div><h5>刘教练</h5><p>体态矫正 · 6年经验</p></div>
+            </div>
+            <span class="tag tag-warning">休假中</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">0节</div><div class="l">本周排课</div></div>
+              <div class="meta-item"><div class="v">5.0</div><div class="l">评分</div></div>
+              <div class="meta-item"><div class="v">52人</div><div class="l">服务会员</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🧑‍🏫</div>
+              <div><h5>林教练</h5><p>瑜伽/拉伸 · 4年经验</p></div>
+            </div>
+            <span class="tag tag-success">在岗</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">28节</div><div class="l">本周排课</div></div>
+              <div class="meta-item"><div class="v">4.9</div><div class="l">评分</div></div>
+              <div class="meta-item"><div class="v">68人</div><div class="l">服务会员</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">📋</div>
+              <div><h5>增肌私教课</h5><p>12节套餐</p></div>
+            </div>
+            <span class="tag tag-success">在售</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥2,880</div><div class="l">价格</div></div>
+              <div class="meta-item"><div class="v">45</div><div class="l">已售</div></div>
+              <div class="meta-item"><div class="v">王/刘</div><div class="l">授课教练</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">📋</div>
+              <div><h5>减脂私教课</h5><p>24节套餐</p></div>
+            </div>
+            <span class="tag tag-success">在售</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥5,280</div><div class="l">价格</div></div>
+              <div class="meta-item"><div class="v">32</div><div class="l">已售</div></div>
+              <div class="meta-item"><div class="v">陈/王</div><div class="l">授课教练</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 会员管理 -->
+      <section class="page" id="page-members">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>会员管理</h2>
+            <p>管理会员档案、会籍与体测数据</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('导出会员列表')">导出</button>
+          </div>
+        </div>
+
+        <div class="stats-grid four">
+          <div class="stat-card"><div class="stat-value">1,203</div><div class="stat-label">有效会员</div></div>
+          <div class="stat-card"><div class="stat-value">86</div><div class="stat-label">本月新增</div></div>
+          <div class="stat-card"><div class="stat-value">¥286,500</div><div class="stat-label">会籍总收入</div></div>
+          <div class="stat-card"><div class="stat-value">73%</div><div class="stat-label">月活跃率</div></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar"><h4>会员列表</h4></div>
+          <table>
+            <thead>
+              <tr><th>会员</th><th>等级</th><th>会籍类型</th><th>剩余课时</th><th>体测记录</th><th>累计消费</th><th>到期时间</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="product-cell"><div class="product-thumb">张</div>张同学</div></td><td><span class="tag tag-warning">黄金会员</span></td><td>年卡</td><td>24节</td><td>3次</td><td>¥8,200</td><td>2027-03-15</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">李</div>李女士</div></td><td><span class="tag tag-danger">钻石会员</span></td><td>终身卡</td><td>不限</td><td>8次</td><td>¥28,600</td><td>永久</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">赵</div>赵先生</div></td><td><span class="tag tag-info">普通会员</span></td><td>季卡</td><td>6节</td><td>1次</td><td>¥2,400</td><td>2026-12-01</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">孙</div>孙小姐</div></td><td><span class="tag tag-warning">黄金会员</span></td><td>半年卡</td><td>12节</td><td>5次</td><td>¥5,800</td><td>2027-01-20</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">周</div>周先生</div></td><td><span class="tag tag-info">普通会员</span></td><td>月卡</td><td>2节</td><td>0次</td><td>¥600</td><td>2026-10-25</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 营销活动 -->
+      <section class="page" id="page-marketing">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>营销活动</h2>
+            <p>创建拉新、促活、续费活动</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('创建活动功能待开发')">+ 创建活动</button>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🎟️</div>
+              <div><h5>新人体验周卡</h5><p>首周免费体验所有团操课</p></div>
+            </div>
+            <span class="tag tag-success">进行中</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">86</div><div class="l">领取</div></div>
+              <div class="meta-item"><div class="v">32</div><div class="l">转化付费</div></div>
+              <div class="meta-item"><div class="v">10/31</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">⚡</div>
+              <div><h5>老带新返现</h5><p>老会员推荐新客办卡返现200元</p></div>
+            </div>
+            <span class="tag tag-success">进行中</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥12,000</div><div class="l">已返现</div></div>
+              <div class="meta-item"><div class="v">60人</div><div class="l">成功推荐</div></div>
+              <div class="meta-item"><div class="v">12/31</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🎁</div>
+              <div><h5>续费赠课</h5><p>到期前续费年卡赠送5节私教</p></div>
+            </div>
+            <span class="tag tag-warning">即将结束</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥86,000</div><div class="l">续费总额</div></div>
+              <div class="meta-item"><div class="v">43人</div><div class="l">参与人数</div></div>
+              <div class="meta-item"><div class="v">10/15</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">📱</div>
+              <div><h5>打卡挑战赛</h5><p>连续打卡21天送月卡</p></div>
+            </div>
+            <span class="tag tag-info">已结束</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">156人</div><div class="l">参与</div></div>
+              <div class="meta-item"><div class="v">43人</div><div class="l">完成挑战</div></div>
+              <div class="meta-item"><div class="v">09/30</div><div class="l">已结束</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 场馆设置 -->
+      <section class="page" id="page-settings">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>场馆设置</h2>
+            <p>管理场馆基本信息与营业配置</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('设置已保存')">保存设置</button>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <div class="table-card form-card">
+              <h4>基本信息</h4>
+              <div class="form-group">
+                <label>场馆名称</label>
+                <input class="form-control" type="text" value="PowerFit 力量健身工作室">
+              </div>
+              <div class="form-group">
+                <label>联系电话</label>
+                <input class="form-control" type="text" value="020-66668888">
+              </div>
+              <div class="form-group">
+                <label>场馆地址</label>
+                <input class="form-control" type="text" value="广州市天河区体育西路189号">
+              </div>
+              <div class="form-group">
+                <label>场馆简介</label>
+                <textarea class="form-control">专注力量训练与体态矫正，拥有专业教练团队，提供私教、团操、瑜伽等全方位健身服务。</textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="table-card form-card">
+              <h4>营业设置</h4>
+              <div class="form-group">
+                <label>营业时间</label>
+                <input class="form-control" type="text" value="07:00 - 23:00">
+              </div>
+              <div class="form-group">
+                <label>最大容纳人数</label>
+                <input class="form-control" type="text" value="80人">
+              </div>
+              <div class="form-group">
+                <label>团操课最大人数</label>
+                <input class="form-control" type="text" value="20人/节">
+              </div>
+            </div>
+            <div class="table-card form-card" style="margin-top:20px;">
+              <h4>设施配置</h4>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 自由力量区</label>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 有氧区</label>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 团操教室</label>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox"> 泳池</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

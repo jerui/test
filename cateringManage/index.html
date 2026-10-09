@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>便利店数字化 · 后台管理</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- 侧边栏 -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">🏪</div>
+      <span class="brand-text">便利店<span>数字化</span></span>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-group-title">主导航</div>
+
+      <div class="menu-item active" data-page="dashboard">
+        <div class="menu-icon">📊</div>
+        <span class="menu-text">数据概览</span>
+      </div>
+      <div class="menu-item" data-page="orders">
+        <div class="menu-icon">🧾</div>
+        <span class="menu-text">订单管理</span>
+        <span class="menu-badge">12</span>
+      </div>
+      <div class="menu-item" data-page="products">
+        <div class="menu-icon">📦</div>
+        <span class="menu-text">商品管理</span>
+      </div>
+      <div class="menu-item" data-page="members">
+        <div class="menu-icon">👥</div>
+        <span class="menu-text">会员管理</span>
+      </div>
+
+      <div class="menu-group-title">运营</div>
+
+      <div class="menu-item" data-page="marketing">
+        <div class="menu-icon">🎯</div>
+        <span class="menu-text">营销活动</span>
+      </div>
+      <div class="menu-item" data-page="settings">
+        <div class="menu-icon">⚙️</div>
+        <span class="menu-text">店铺设置</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="menu-item" onclick="showToast('已退出登录')">
+        <div class="menu-icon">🚪</div>
+        <span class="menu-text">退出登录</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <div class="main">
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" placeholder="搜索订单、商品、会员...">
+      </div>
+
+      <div class="topbar-actions">
+        <button class="top-btn" onclick="showToast('暂无新消息')">🔔<span class="dot"></span></button>
+        <button class="top-btn" onclick="showToast('系统运行正常')">⚙️</button>
+        <div class="user-info">
+          <div class="avatar">店</div>
+          <div>
+            <div class="user-name">店长</div>
+            <div class="user-role">龙洞店 · 管理员</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 内容区 -->
+    <main class="content">
+
+      <!-- 数据概览 -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>数据概览</h2>
+            <p>实时掌握门店经营状况</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline">导出报表</button>
+            <button class="btn btn-primary" onclick="showToast('数据已刷新')">🔄 刷新</button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon orange">💰</div>
+              <span class="stat-trend up">↑ 12.5%</span>
+            </div>
+            <div class="stat-value">¥28,650</div>
+            <div class="stat-label">今日营业额</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon blue">🧾</div>
+              <span class="stat-trend up">↑ 8.2%</span>
+            </div>
+            <div class="stat-value">386</div>
+            <div class="stat-label">今日订单数</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon green">👥</div>
+              <span class="stat-trend up">↑ 23.1%</span>
+            </div>
+            <div class="stat-value">2,847</div>
+            <div class="stat-label">会员总数</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon purple">⚠️</div>
+              <span class="stat-trend down">↓ 3件</span>
+            </div>
+            <div class="stat-value">15</div>
+            <div class="stat-label">库存预警商品</div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h4>近7天营业额趋势</h4>
+            <div class="chart-placeholder" id="barChart"></div>
+          </div>
+          <div class="chart-card">
+            <h4>商品品类占比</h4>
+            <div class="donut-wrap">
+              <div class="donut"></div>
+              <div class="donut-center">
+                <div class="num">¥28k</div>
+                <div class="lbl">今日总营收</div>
+              </div>
+            </div>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#ff6a13"></span>饮料零食 33%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#ffb347"></span>日用百货 25%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#00c878"></span>烟酒 25%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:rgba(255,255,255,0.15)"></span>其他 17%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar">
+            <h4>最新订单</h4>
+            <div class="table-tools">
+              <button class="btn btn-outline btn-sm" onclick="navigateTo('orders')">查看全部</button>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>订单号</th><th>顾客</th><th>金额</th><th>方式</th><th>状态</th><th>时间</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#20261009001</td><td>李同学</td><td>¥45.00</td><td>微信</td><td><span class="tag tag-success">已完成</span></td><td>14:32</td></tr>
+              <tr><td>#20261009002</td><td>王女士</td><td>¥128.50</td><td>会员卡</td><td><span class="tag tag-success">已完成</span></td><td>14:28</td></tr>
+              <tr><td>#20261009003</td><td>张大爷</td><td>¥32.00</td><td>现金</td><td><span class="tag tag-warning">待自提</span></td><td>14:20</td></tr>
+              <tr><td>#20261009004</td><td>陈小姐</td><td>¥76.00</td><td>支付宝</td><td><span class="tag tag-info">配送中</span></td><td>14:15</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 订单管理 -->
+      <section class="page" id="page-orders">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>订单管理</h2>
+            <p>管理所有线上线下的订单</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline">筛选</button>
+            <button class="btn btn-primary" onclick="showToast('导出成功')">导出</button>
+          </div>
+        </div>
+
+        <div class="stats-grid four">
+          <div class="stat-card"><div class="stat-value">386</div><div class="stat-label">今日订单</div></div>
+          <div class="stat-card"><div class="stat-value">12</div><div class="stat-label">待处理</div></div>
+          <div class="stat-card"><div class="stat-value">¥28,650</div><div class="stat-label">今日营收</div></div>
+          <div class="stat-card"><div class="stat-value">¥74</div><div class="stat-label">客单价</div></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar"><h4>订单列表</h4></div>
+          <table>
+            <thead>
+              <tr><th>订单号</th><th>顾客</th><th>商品数</th><th>金额</th><th>方式</th><th>状态</th><th>时间</th><th>操作</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#20261009001</td><td>李同学</td><td>5件</td><td>¥45.00</td><td>微信</td><td><span class="tag tag-success">已完成</span></td><td>14:32</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+              <tr><td>#20261009002</td><td>王女士</td><td>12件</td><td>¥128.50</td><td>会员卡</td><td><span class="tag tag-success">已完成</span></td><td>14:28</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+              <tr><td>#20261009003</td><td>张大爷</td><td>3件</td><td>¥32.00</td><td>现金</td><td><span class="tag tag-warning">待自提</span></td><td>14:20</td><td><button class="btn btn-primary btn-sm" onclick="showToast('已确认自提')">确认</button></td></tr>
+              <tr><td>#20261009004</td><td>陈小姐</td><td>4件</td><td>¥76.00</td><td>支付宝</td><td><span class="tag tag-info">配送中</span></td><td>14:15</td><td><button class="btn btn-outline btn-sm">跟踪</button></td></tr>
+              <tr><td>#20261009005</td><td>刘先生</td><td>2件</td><td>¥18.00</td><td>微信</td><td><span class="tag tag-danger">已取消</span></td><td>14:05</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+              <tr><td>#20261009006</td><td>赵阿姨</td><td>8件</td><td>¥96.00</td><td>会员卡</td><td><span class="tag tag-success">已完成</span></td><td>13:58</td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 商品管理 -->
+      <section class="page" id="page-products">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>商品管理</h2>
+            <p>管理商品上下架、库存与价格</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('新增商品功能待开发')">+ 新增商品</button>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🥤</div>
+              <div><h5>可口可乐 330ml</h5><p>饮料 · 热销</p></div>
+            </div>
+            <span class="tag tag-success">在售</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥3.50</div><div class="l">售价</div></div>
+              <div class="meta-item"><div class="v">128</div><div class="l">库存</div></div>
+              <div class="meta-item"><div class="v">320</div><div class="l">月销</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🍞</div>
+              <div><h5>康师傅方便面</h5><p>食品 · 热销</p></div>
+            </div>
+            <span class="tag tag-warning">库存低</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥4.50</div><div class="l">售价</div></div>
+              <div class="meta-item"><div class="v">3</div><div class="l">库存</div></div>
+              <div class="meta-item"><div class="v">210</div><div class="l">月销</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🧴</div>
+              <div><h5>舒肤佳沐浴露</h5><p>日用 · 普通</p></div>
+            </div>
+            <span class="tag tag-success">在售</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥39.90</div><div class="l">售价</div></div>
+              <div class="meta-item"><div class="v">42</div><div class="l">库存</div></div>
+              <div class="meta-item"><div class="v">56</div><div class="l">月销</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🚬</div>
+              <div><h5>中华香烟</h5><p>烟酒 · 管控</p></div>
+            </div>
+            <span class="tag tag-info">限售</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥45.00</div><div class="l">售价</div></div>
+              <div class="meta-item"><div class="v">65</div><div class="l">库存</div></div>
+              <div class="meta-item"><div class="v">180</div><div class="l">月销</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🍪</div>
+              <div><h5>奥利奥饼干</h5><p>零食 · 普通</p></div>
+            </div>
+            <span class="tag tag-success">在售</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥7.50</div><div class="l">售价</div></div>
+              <div class="meta-item"><div class="v">86</div><div class="l">库存</div></div>
+              <div class="meta-item"><div class="v">145</div><div class="l">月销</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🥛</div>
+              <div><h5>伊利纯牛奶</h5><p>乳品 · 热销</p></div>
+            </div>
+            <span class="tag tag-danger">缺货</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥5.00</div><div class="l">售价</div></div>
+              <div class="meta-item"><div class="v">0</div><div class="l">库存</div></div>
+              <div class="meta-item"><div class="v">268</div><div class="l">月销</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 会员管理 -->
+      <section class="page" id="page-members">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>会员管理</h2>
+            <p>管理会员信息与营销触达</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('导出会员列表')">导出</button>
+          </div>
+        </div>
+
+        <div class="stats-grid four">
+          <div class="stat-card"><div class="stat-value">2,847</div><div class="stat-label">会员总数</div></div>
+          <div class="stat-card"><div class="stat-value">1,260</div><div class="stat-label">本月活跃</div></div>
+          <div class="stat-card"><div class="stat-value">¥186,500</div><div class="stat-label">储值总额</div></div>
+          <div class="stat-card"><div class="stat-value">65%</div><div class="stat-label">复购率</div></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar"><h4>会员列表</h4></div>
+          <table>
+            <thead>
+              <tr><th>会员</th><th>等级</th><th>手机号</th><th>积分</th><th>储值余额</th><th>累计消费</th><th>注册时间</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="product-cell"><div class="product-thumb">李</div>李同学</div></td><td><span class="tag tag-warning">黄金会员</span></td><td>138****6688</td><td>1,260</td><td>¥500.00</td><td>¥4,820</td><td>2026-06-12</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">王</div>王女士</div></td><td><span class="tag tag-danger">钻石会员</span></td><td>139****3321</td><td>8,500</td><td>¥2,000.00</td><td>¥18,650</td><td>2025-11-03</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">张</div>张大爷</div></td><td><span class="tag tag-info">普通会员</span></td><td>137****9900</td><td>320</td><td>¥100.00</td><td>¥1,230</td><td>2026-08-21</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">陈</div>陈小姐</div></td><td><span class="tag tag-warning">黄金会员</span></td><td>158****4477</td><td>3,400</td><td>¥800.00</td><td>¥7,910</td><td>2026-03-15</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">刘</div>刘先生</div></td><td><span class="tag tag-info">普通会员</span></td><td>136****2211</td><td>150</td><td>¥0.00</td><td>¥560</td><td>2026-09-30</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 营销活动 -->
+      <section class="page" id="page-marketing">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>营销活动</h2>
+            <p>创建和管理促销活动</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('创建活动功能待开发')">+ 创建活动</button>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🎟️</div>
+              <div><h5>新客立减券</h5><p>首单满30减5</p></div>
+            </div>
+            <span class="tag tag-success">进行中</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">1,260</div><div class="l">领取</div></div>
+              <div class="meta-item"><div class="v">438</div><div class="l">使用</div></div>
+              <div class="meta-item"><div class="v">10/31</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">⚡</div>
+              <div><h5>第二件半价</h5><p>指定饮料</p></div>
+            </div>
+            <span class="tag tag-success">进行中</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥2,850</div><div class="l">带动营收</div></div>
+              <div class="meta-item"><div class="v">320</div><div class="l">参与人数</div></div>
+              <div class="meta-item"><div class="v">10/25</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🎁</div>
+              <div><h5>储值赠礼</h5><p>充500送50</p></div>
+            </div>
+            <span class="tag tag-warning">即将结束</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥86,000</div><div class="l">充值总额</div></div>
+              <div class="meta-item"><div class="v">172</div><div class="l">参与人数</div></div>
+              <div class="meta-item"><div class="v">10/15</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">📱</div>
+              <div><h5>裂变拉新</h5><p>邀友得券</p></div>
+            </div>
+            <span class="tag tag-info">已结束</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">386</div><div class="l">新增会员</div></div>
+              <div class="meta-item"><div class="v">¥12,400</div><div class="l">带动营收</div></div>
+              <div class="meta-item"><div class="v">09/30</div><div class="l">已结束</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 店铺设置 -->
+      <section class="page" id="page-settings">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>店铺设置</h2>
+            <p>管理店铺基本信息与营业配置</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('设置已保存')">保存设置</button>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <div class="table-card form-card">
+              <h4>基本信息</h4>
+              <div class="form-group">
+                <label>店铺名称</label>
+                <input class="form-control" type="text" value="便利之家·龙洞店">
+              </div>
+              <div class="form-group">
+                <label>联系电话</label>
+                <input class="form-control" type="text" value="020-88888888">
+              </div>
+              <div class="form-group">
+                <label>店铺地址</label>
+                <input class="form-control" type="text" value="广州市天河区龙洞东路88号">
+              </div>
+              <div class="form-group">
+                <label>店铺简介</label>
+                <textarea class="form-control">专注服务周边社区居民与学生，24小时营业。</textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="table-card form-card">
+              <h4>营业设置</h4>
+              <div class="form-group">
+                <label>营业时间</label>
+                <input class="form-control" type="text" value="00:00 - 24:00（全天）">
+              </div>
+              <div class="form-group">
+                <label>配送范围</label>
+                <input class="form-control" type="text" value="周边 3 公里">
+              </div>
+              <div class="form-group">
+                <label>起送金额</label>
+                <input class="form-control" type="text" value="¥20.00">
+              </div>
+            </div>
+            <div class="table-card form-card" style="margin-top:20px;">
+              <h4>配送方式</h4>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 到店自提</label>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 店员配送</label>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox"> 美团外卖</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

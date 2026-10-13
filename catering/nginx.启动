@@ -1,0 +1,2 @@
+/www/server/nginx/conf/nginx.conf
+/www/server/nginx/sbin/nginx -s reload

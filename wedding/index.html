@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeddingOS · 高端婚礼定制 | 让每一场婚礼都独一无二</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: #fff;
+            line-height: 1.6;
+            background: #0a0f1e;
+            overflow-x: hidden;
+        }
+
+        /* ===== 导航 ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 15, 30, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .logo span { color: #e85d8a; }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: #e85d8a; }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #e85d8a;
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #e85d8a, #f2a6c0);
+            color: #fff;
+            padding: 8px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav-cta:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(232,93,138,0.4); }
+
+        /* ===== 英雄区 ===== */
+        .hero {
+            margin-top: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: 
+                linear-gradient(rgba(10,15,30,0.65), rgba(10,15,30,0.85)),
+                url('image/9.jpg') center/cover;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .hero-content { max-width: 800px; animation: fadeUp 1s ease; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(232,93,138,0.15);
+            border: 1px solid rgba(232,93,138,0.3);
+            color: #f2a6c0;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #e85d8a, #f2a6c0, #b06ab3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 36px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #e85d8a, #f2a6c0);
+            color: #fff;
+            padding: 16px 42px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 25px rgba(232,93,138,0.35);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 35px rgba(232,93,138,0.5); }
+
+        .btn-outline-white {
+            display: inline-block;
+            background: transparent;
+            color: #fff;
+            padding: 16px 42px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+        .btn-outline-white:hover { border-color: #e85d8a; color: #e85d8a; }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 56px;
+            flex-wrap: wrap;
+        }
+        .hero-stat .num { font-size: 36px; font-weight: 800; color: #fff; }
+        .hero-stat .label { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+        /* ===== 卖点区 ===== */
+        .features {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header .sub { color: #e85d8a; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+        .section-header h2 { font-size: 36px; font-weight: 700; color: #fff; }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-8px); border-color: rgba(232,93,138,0.2); background: rgba(255,255,255,0.04); }
+
+        .feature-card .icon { font-size: 42px; margin-bottom: 16px; }
+        .feature-card h3 { font-size: 16px; color: #fff; margin-bottom: 10px; }
+        .feature-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+        /* ===== 婚礼风格 ===== */
+        .styles-section {
+            padding: 100px 20px;
+            background: rgba(255,255,255,0.01);
+        }
+
+        .styles-inner { max-width: 1200px; margin: 0 auto; }
+
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .style-card {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            height: 320px;
+            cursor: pointer;
+        }
+
+        .style-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .style-card:hover img { transform: scale(1.08); }
+
+        .style-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 30px 20px 20px;
+        }
+
+        .style-overlay h3 { font-size: 20px; color: #fff; margin-bottom: 6px; }
+        .style-overlay p { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+        .style-price {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(232,93,138,0.9);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ===== 真实案例 ===== */
+        .cases-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .case-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            transition: all 0.3s;
+        }
+        .case-card:hover { border-color: rgba(232,93,138,0.2); }
+
+        .case-image { width: 200px; height: 180px; flex-shrink: 0; }
+        .case-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        .case-info { padding: 20px 24px; flex: 1; }
+        .case-info h4 { font-size: 16px; color: #fff; margin-bottom: 8px; }
+        .case-meta { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+        .case-meta span { font-size: 12px; color: rgba(255,255,255,0.5); }
+        .case-meta span strong { color: #e85d8a; }
+        .case-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+        /* ===== 服务流程 ===== */
+        .process-section {
+            padding: 100px 20px;
+            background: rgba(255,255,255,0.01);
+        }
+
+        .process-inner { max-width: 1000px; margin: 0 auto; }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #e85d8a, #f2a6c0, transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e85d8a, #f2a6c0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 0 0 6px rgba(232,93,138,0.1);
+            z-index: 2;
+        }
+
+        .timeline-content h4 { font-size: 16px; color: #fff; margin-bottom: 8px; }
+        .timeline-content p { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+        /* ===== 口碑评价 ===== */
+        .reviews-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .review-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        .review-card:hover { border-color: rgba(232,93,138,0.2); transform: translateY(-4px); }
+
+        .review-stars { color: #f2a6c0; font-size: 16px; margin-bottom: 12px; }
+
+        .review-card p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 16px; }
+
+        .reviewer-info { display: flex; align-items: center; gap: 12px; }
+        .reviewer-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e85d8a, #f2a6c0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .reviewer-name { font-size: 14px; color: #fff; font-weight: 600; }
+        .reviewer-tag { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+        /* ===== 底部CTA ===== */
+        .bottom-cta {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(232,93,138,0.1), rgba(176,106,179,0.1));
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .bottom-cta h2 { font-size: 32px; margin-bottom: 16px; }
+        .bottom-cta p { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 32px; }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item { text-align: center; }
+        .contact-item .icon { font-size: 32px; margin-bottom: 8px; }
+        .contact-item .label { font-size: 13px; color: rgba(255,255,255,0.4); }
+        .contact-item .value { font-size: 18px; color: #fff; font-weight: 600; margin-top: 4px; }
+
+        /* ===== 底部 ===== */
+        footer {
+            background: #060914;
+            padding: 40px 20px 24px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-logo { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .footer-logo span { color: #e85d8a; }
+
+        footer p { font-size: 13px; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+
+        /* ===== 浮动按钮 ===== */
+        .floating-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e85d8a, #f2a6c0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(232,93,138,0.4);
+            z-index: 999;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+        .floating-btn:hover { transform: scale(1.15); }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(232,93,138,0.6); }
+            50% { box-shadow: 0 0 0 14px rgba(232,93,138,0); }
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 1024px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .styles-grid { grid-template-columns: repeat(2, 1fr); }
+            .review-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 15px; }
+            .nav-links { display: none; }
+            .features-grid { grid-template-columns: 1fr; }
+            .styles-grid { grid-template-columns: 1fr; }
+            .cases-grid { grid-template-columns: 1fr; }
+            .case-card { flex-direction: column; }
+            .case-image { width: 100%; height: 200px; }
+            .review-grid { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { flex-direction: column; align-items: flex-start; }
+            .timeline-item:nth-child(even) { flex-direction: column; }
+            .timeline-content { width: calc(100% - 60px); margin-left: 60px; }
+            .timeline-dot { left: 20px; transform: none; }
+            .hero-stats { gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航 -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <div class="logo">💍 Wedding<span>OS</span></div>
+            <div class="nav-links">
+                <a href="#styles">婚礼风格</a>
+                <a href="#cases">真实案例</a>
+                <a href="#process">服务流程</a>
+                <a href="#reviews">新人评价</a>
+            </div>
+            <a href="#contact" class="nav-cta">免费咨询</a>
+        </div>
+    </nav>
+
+    <!-- 主视觉 -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✨ 广州本土 · 高端婚礼定制</div>
+            <h1>让每一场婚礼<br><span class="gradient-text">都独一无二</span></h1>
+            <p>从策划到执行，一站式婚礼定制服务。300+场婚礼经验，4.9分口碑评分，让你的备婚之旅省心又浪漫。</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn-primary">💌 免费获取方案</a>
+                <a href="#cases" class="btn-outline-white">📸 查看案例</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat"><div class="num">300+</div><div class="label">已执行婚礼</div></div>
+                <div class="hero-stat"><div class="num">4.9★</div><div class="label">新人评分</div></div>
+                <div class="hero-stat"><div class="num">98%</div><div class="label">推荐率</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 卖点 -->
+    <section class="features">
+        <div class="section-header">
+            <div class="sub">为什么选择我们</div>
+            <h2>专业团队 · 全程无忧</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">🎨</div>
+                <h3>原创设计</h3>
+                <p>拒绝模板化，每场婚礼根据新人故事量身定制，从色彩到花艺全案设计</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">👥</div>
+                <h3>资深团队</h3>
+                <p>10年+策划经验团队，自有花艺工坊与灯光设备，品质全程可控</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">💰</div>
+                <h3>透明报价</h3>
+                <p>无隐形消费，预算分配清晰可见，花每一分钱都明明白白</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🛡️</div>
+                <h3>全程保障</h3>
+                <p>签约即享延期赔付、天气备选方案、现场应急团队三重保障</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 婚礼风格 -->
+    <section class="styles-section" id="styles">
+        <div class="styles-inner">
+            <div class="section-header">
+                <div class="sub">婚礼风格</div>
+                <h2>找到属于你们的仪式感</h2>
+            </div>
+            <div class="styles-grid">
+                <div class="style-card">
+                    <div class="style-price">¥88,000起</div>
+                    <img src="image/8.jpg" alt="森系户外">
+                    <div class="style-overlay">
+                        <h3>🌿 森系户外</h3>
+                        <p>草坪婚礼 · 自然花艺 · 阳光与绿意</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <div class="style-price">¥128,000起</div>
+                    <img src="image/7.jpg" alt="中式传统">
+                    <div class="style-overlay">
+                        <h3>🏮 中式传统</h3>
+                        <p>明制/唐制 · 迎亲仪式 · 凤冠霞帔</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <div class="style-price">¥158,000起</div>
+                    <img src="image/6.jpg" alt="极简现代">
+                    <div class="style-overlay">
+                        <h3>✨ 极简现代</h3>
+                        <p>酒店宴会 · 灯光设计 · 高级感拉满</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <div class="style-price">¥288,000起</div>
+                    <img src="image/4.jpg" alt="目的地婚礼">
+                    <div class="style-overlay">
+                        <h3>🏝️ 目的地婚礼</h3>
+                        <p>海岛/海外 · 一站式 · 蜜月+婚礼</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <div class="style-price">¥6,800起</div>
+                    <img src="image/4.jpg" alt="婚纱摄影">
+                    <div class="style-overlay">
+                        <h3>📸 婚纱摄影</h3>
+                        <p>内景+外景 · 精修50张 · 一对一服务</p>
+                    </div>
+                </div>
+                <div class="style-card">
+                    <div class="style-price">¥4,500起</div>
+                    <img src="image/5.jpg" alt="婚礼跟拍">
+                    <div class="style-overlay">
+                        <h3>🎥 婚礼跟拍</h3>
+                        <p>双机位 · 快剪+精剪 · 记录每个瞬间</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 真实案例 -->
+    <section class="cases-section" id="cases">
+        <div class="section-header">
+            <div class="sub">真实案例</div>
+            <h2>每一场都是独家记忆</h2>
+        </div>
+        <div class="cases-grid">
+            <div class="case-card">
+                <div class="case-image">
+                    <img src="image/3.jpg" alt="案例">
+                </div>
+                <div class="case-info">
+                    <h4>张先生 & 李女士 · 森系草坪婚礼</h4>
+                    <div class="case-meta">
+                        <span>📅 <strong>2026-10-18</strong></span>
+                        <span>📍 <strong>广州·二沙岛</strong></span>
+                        <span>💰 <strong>¥128,000</strong></span>
+                    </div>
+                    <p class="case-desc">"从策划到执行全程零操心，现场布置超出预期，朋友都说这是今年参加过最美的婚礼。"</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">
+                    <img src="image/2.jpg" alt="案例">
+                </div>
+                <div class="case-info">
+                    <h4>王先生 & 陈女士 · 中式明制婚礼</h4>
+                    <div class="case-meta">
+                        <span>📅 <strong>2026-09-28</strong></span>
+                        <span>📍 <strong>广州·沙面</strong></span>
+                        <span>💰 <strong>¥168,000</strong></span>
+                    </div>
+                    <p class="case-desc">"凤冠霞帔、十里红妆，还原度极高。父母非常满意，仪式感满满，一辈子难忘。"</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">
+                    <img src="image/1.jpg" alt="案例">
+                </div>
+                <div class="case-info">
+                    <h4>刘先生 & 孙小姐 · 极简现代酒店婚礼</h4>
+                    <div class="case-meta">
+                        <span>📅 <strong>2026-09-15</strong></span>
+                        <span>📍 <strong>广州·四季酒店</strong></span>
+                        <span>💰 <strong>¥198,000</strong></span>
+                    </div>
+                    <p class="case-desc">"灯光设计太惊艳了，简洁但不简单，高级感拉满，每一张照片都像电影截图。"</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">
+                    <img src="image/1.jpg" alt="案例">
+                </div>
+                <div class="case-info">
+                    <h4>周先生 & 吴小姐 · 巴厘岛目的地婚礼</h4>
+                    <div class="case-meta">
+                        <span>📅 <strong>2026-08-20</strong></span>
+                        <span>📍 <strong>巴厘岛·悬崖教堂</strong></span>
+                        <span>💰 <strong>¥288,000</strong></span>
+                    </div>
+                    <p class="case-desc">"婚礼+蜜月一站式搞定，海外团队配合默契，海景仪式美到哭，值得一生回味。"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务流程 -->
+    <section class="process-section" id="process">
+        <div class="process-inner">
+            <div class="section-header">
+                <div class="sub">服务流程</div>
+                <h2>6步搞定你的完美婚礼</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot">1</div>
+                    <div class="timeline-content">
+                        <h4>初次沟通</h4>
+                        <p>了解新人故事、偏好与预算，提供初步方案与报价</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">2</div>
+                    <div class="timeline-content">
+                        <h4>签约确认</h4>
+                        <p>确定方案细节，签订服务合同，支付定金锁定档期</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">3</div>
+                    <div class="timeline-content">
+                        <h4>全案设计</h4>
+                        <p>花艺、灯光、舞美全案设计，出3D效果图确认</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">4</div>
+                    <div class="timeline-content">
+                        <h4>供应商对接</h4>
+                        <p>摄影、摄像、主持、化妆等供应商统一协调对接</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">5</div>
+                    <div class="timeline-content">
+                        <h4>彩排执行</h4>
+                        <p>婚礼前1-2天现场搭建，当天全流程彩排与执行</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">6</div>
+                    <div class="timeline-content">
+                        <h4>交付成片</h4>
+                        <p>婚礼后7-15个工作日交付精修照片与视频成片</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 口碑评价 -->
+    <section class="reviews-section" id="reviews">
+        <div class="section-header">
+            <div class="sub">新人评价</div>
+            <h2>每一句好评都是最好的见证</h2>
+        </div>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p>"策划师超细心，从选场地到当天流程安排得井井有条。当天完全不用操心，只管美美地享受就好！"</p>
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">张</div>
+                    <div><div class="reviewer-name">张女士</div><div class="reviewer-tag">2026.10 · 森系草坪婚礼</div></div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p>"花艺设计太美了，现场比效果图还好看！灯光配合音乐节奏变化，宾客都惊呆了，强烈推荐。"</p>
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">王</div>
+                    <div><div class="reviewer-name">王先生</div><div class="reviewer-tag">2026.09 · 极简现代婚礼</div></div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p>"对比了5家婚庆公司，最终选了WeddingOS。专业度最高，价格透明，没有隐形消费，物超所值。"</p>
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">李</div>
+                    <div><div class="reviewer-name">李女士</div><div class="reviewer-tag">2026.08 · 中式传统婚礼</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部CTA -->
+    <section class="bottom-cta" id="contact">
+        <h2>准备好开启你的婚礼之旅了吗？</h2>
+        <p>填写需求，免费获取专属婚礼策划方案</p>
+        <a href="#" class="btn-primary" onclick="showToast('咨询功能已触发，请添加微信联系我们')">💌 立即免费咨询</a>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="icon">📞</div>
+                <div class="label">咨询热线</div>
+                <div class="value">13026708817</div>
+            </div>
+            <div class="contact-item">
+                <div class="icon">💬</div>
+                <div class="label">微信咨询</div>
+                <div class="value">jegood159</div>
+            </div>
+            <div class="contact-item">
+                <div class="icon">📍</div>
+                <div class="label">门店地址</div>
+                <div class="value">广州·海珠区琶醍B区</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer>
+        <div class="footer-logo">💍 Wedding<span>OS</span></div>
+        <p>高端婚礼定制 · 一站式服务 · 让爱更有仪式感</p>
+        <p style="margin-top:12px; opacity:0.5; font-size:12px;">© 2026 WeddingOS · 本页面为展示模板，实际服务以合同为准</p>
+    </footer>
+
+    <!-- 浮动按钮 -->
+    <a href="#contact" class="floating-btn" title="立即咨询">💌</a>
+
+    <script>
+        // 导航滚动效果
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Toast提示
+        function showToast(msg) {
+            let toast = document.getElementById('toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast';
+                toast.style.cssText = 'position:fixed;top:80px;right:24px;padding:14px 22px;background:#0f1530;border:1px solid rgba(232,93,138,0.3);border-radius:10px;color:#e85d8a;font-size:14px;z-index:2000;box-shadow:0 8px 30px rgba(0,0,0,0.4);transform:translateX(120%);transition:transform 0.4s ease;';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            toast.style.transform = 'translateX(0)';
+            setTimeout(() => { toast.style.transform = 'translateX(120%)'; }, 2500);
+        }
+
+        // 数字跳动动画
+        function animateNumbers() {
+            const nums = document.querySelectorAll('.hero-stat .num');
+            nums.forEach(el => {
+                const target = el.textContent;
+                if (target.includes('+') || target.includes('★') || target.includes('%')) {
+                    return; // 跳过非纯数字
+                }
+                let current = 0;
+                const step = Math.ceil(parseInt(target) / 30);
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= parseInt(target)) {
+                        el.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        el.textContent = current;
+                    }
+                }, 50);
+            });
+        }
+
+        // 滚动触发数字动画
+        let animated = false;
+        window.addEventListener('scroll', () => {
+            if (!animated && window.scrollY > 200) {
+                animateNumbers();
+                animated = true;
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -95,8 +95,10 @@ server
 
         access_log  /www/wwwlogs/access.log;
     }
-	
-	server {
+
+    
+
+   server {
     listen 80;
     server_name web.pengyouquanydj.cn;
     
@@ -118,13 +120,57 @@ server
     location = /catering {
         return 301 /catering/;
     }
+   
+
+     # minimart 子应用
+    location /minimart/ {
+        alias /www/wwwroot/minimart/;
+        index index.html;
+        try_files $uri $uri/ /minimart/index.html;
+    }
+
+    location = /minimart {
+        return 301 /minimart/;
+    }
+    # fitness 子应用
+    location /fitness/ {
+        alias /www/wwwroot/fitness/;
+        index index.html;
+        try_files $uri $uri/ /fitness/index.html;
+    }
+
+    location = /fitness {
+        return 301 /fitness/;
+    }
+
+    # fitManage 子应用
+    location /fitManage/ {
+        alias /www/wwwroot/fitManage/;
+        index index.html;
+        try_files $uri $uri/ /fitManage/index.html;
+    }
+
+    location = /fitManage {
+        return 301 /fitManage/;
+    }
+
+ # cateringManage 子应用
+    location /cateringManage/ {
+        alias /www/wwwroot/cateringManage/;
+        index index.html;
+        try_files $uri $uri/ /cateringManage/index.html;
+    }
+
+    location = /cateringManage {
+        return 301 /cateringManage/;
+    }
+
 }
-	
-	
+
+
+
+
+
 include /www/server/panel/vhost/nginx/*.conf;
 }
-
-
-
-
 

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeddingOS · 婚庆管理后台</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- 侧边栏 -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">💍</div>
+      <span class="brand-text">Wedding<span>OS</span></span>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-group-title">核心业务</div>
+
+      <div class="menu-item active" data-page="dashboard">
+        <div class="menu-icon">📊</div>
+        <span class="menu-text">数据概览</span>
+      </div>
+      <div class="menu-item" data-page="orders">
+        <div class="menu-icon">📋</div>
+        <span class="menu-text">档期预约</span>
+        <span class="menu-badge">6</span>
+      </div>
+      <div class="menu-item" data-page="products">
+        <div class="menu-icon">🎨</div>
+        <span class="menu-text">婚礼方案</span>
+      </div>
+      <div class="menu-item" data-page="members">
+        <div class="menu-icon">👰</div>
+        <span class="menu-text">新人档案</span>
+      </div>
+
+      <div class="menu-group-title">运营</div>
+
+      <div class="menu-item" data-page="marketing">
+        <div class="menu-icon">🎯</div>
+        <span class="menu-text">获客活动</span>
+      </div>
+      <div class="menu-item" data-page="settings">
+        <div class="menu-icon">⚙️</div>
+        <span class="menu-text">品牌设置</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="menu-item" onclick="showToast('已退出登录')">
+        <div class="menu-icon">🚪</div>
+        <span class="menu-text">退出登录</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容 -->
+  <div class="main">
+    <!-- 顶部栏 -->
+    <header class="topbar">
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" placeholder="搜索新人姓名、档期、方案...">
+      </div>
+
+      <div class="topbar-actions">
+        <button class="top-btn" onclick="showToast('暂无新消息')">🔔<span class="dot"></span></button>
+        <button class="top-btn" onclick="showToast('系统运行正常')">⚙️</button>
+        <div class="user-info">
+          <div class="avatar">策</div>
+          <div>
+            <div class="user-name">策划总监</div>
+            <div class="user-role">WeddingOS · 管理员</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 内容区 -->
+    <main class="content">
+
+      <!-- 数据概览 -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>数据概览</h2>
+            <p>实时掌握婚庆业务经营状况</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline">导出报表</button>
+            <button class="btn btn-primary" onclick="showToast('数据已刷新')">🔄 刷新</button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon orange">💰</div>
+              <span class="stat-trend up">↑ 32.5%</span>
+            </div>
+            <div class="stat-value">¥186,500</div>
+            <div class="stat-label">本月签约金额</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon blue">📋</div>
+              <span class="stat-trend up">↑ 6场</span>
+            </div>
+            <div class="stat-value">14</div>
+            <div class="stat-label">本月婚礼档期</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon green">👰</div>
+              <span class="stat-trend up">↑ 18组</span>
+            </div>
+            <div class="stat-value">326</div>
+            <div class="stat-label">在档新人</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon purple">⚡</div>
+              <span class="stat-trend down">↓ 3个</span>
+            </div>
+            <div class="stat-value">8</div>
+            <div class="stat-label">待跟进意向客户</div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h4>近7天咨询量趋势</h4>
+            <div class="chart-placeholder" id="barChart"></div>
+          </div>
+          <div class="chart-card">
+            <h4>婚礼风格偏好占比</h4>
+            <div class="donut-wrap">
+              <div class="donut"></div>
+              <div class="donut-center">
+                <div class="num">14场</div>
+                <div class="lbl">本月婚礼</div>
+              </div>
+            </div>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#e85d8a"></span>森系户外 38%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#f2a6c0"></span>中式传统 25%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#b06ab3"></span>极简现代 22%</div>
+              <div class="legend-item"><span class="legend-dot" style="background:rgba(255,255,255,0.15)"></span>其他 15%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar">
+            <h4>近期婚礼档期</h4>
+            <div class="table-tools">
+              <button class="btn btn-outline btn-sm" onclick="navigateTo('orders')">查看全部</button>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>档期编号</th><th>新人</th><th>婚礼日期</th><th>婚礼类型</th><th>状态</th><th>策划师</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#WD20261018001</td><td>张先生 & 李女士</td><td>2026-10-18</td><td>森系户外</td><td><span class="tag tag-success">已确认</span></td><td>林策划</td></tr>
+              <tr><td>#WD20261025002</td><td>王先生 & 陈女士</td><td>2026-10-25</td><td>中式传统</td><td><span class="tag tag-warning">方案沟通中</span></td><td>赵策划</td></tr>
+              <tr><td>#WD20261101003</td><td>刘先生 & 孙小姐</td><td>2026-11-01</td><td>极简现代</td><td><span class="tag tag-info">布置中</span></td><td>林策划</td></tr>
+              <tr><td>#WD20261108004</td><td>周先生 & 吴小姐</td><td>2026-11-08</td><td>目的地婚礼</td><td><span class="tag tag-warning">待付尾款</span></td><td>赵策划</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 档期预约 -->
+      <section class="page" id="page-orders">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>档期预约</h2>
+            <p>管理所有婚礼档期与咨询预约</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline">筛选</button>
+            <button class="btn btn-primary" onclick="showToast('新增档期功能待开发')">+ 新增档期</button>
+          </div>
+        </div>
+
+        <div class="stats-grid four">
+          <div class="stat-card"><div class="stat-value">14</div><div class="stat-label">本月婚礼</div></div>
+          <div class="stat-card"><div class="stat-value">6</div><div class="stat-label">待确认</div></div>
+          <div class="stat-card"><div class="stat-value">23</div><div class="stat-label">本月咨询</div></div>
+          <div class="stat-card"><div class="stat-value">¥13.3万</div><div class="stat-label">平均客单价</div></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar"><h4>档期列表</h4></div>
+          <table>
+            <thead>
+              <tr><th>档期编号</th><th>新人</th><th>婚礼日期</th><th>类型</th><th>预算</th><th>状态</th><th>操作</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#WD20261018001</td><td>张先生 & 李女士</td><td>2026-10-18</td><td>森系户外</td><td>¥128,000</td><td><span class="tag tag-success">已确认</span></td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+              <tr><td>#WD20261025002</td><td>王先生 & 陈女士</td><td>2026-10-25</td><td>中式传统</td><td>¥86,000</td><td><span class="tag tag-warning">方案沟通中</span></td><td><button class="btn btn-primary btn-sm" onclick="showToast('已发送方案')">发送方案</button></td></tr>
+              <tr><td>#WD20261101003</td><td>刘先生 & 孙小姐</td><td>2026-11-01</td><td>极简现代</td><td>¥168,000</td><td><span class="tag tag-info">布置中</span></td><td><button class="btn btn-outline btn-sm">查看进度</button></td></tr>
+              <tr><td>#WD20261108004</td><td>周先生 & 吴小姐</td><td>2026-11-08</td><td>目的地婚礼</td><td>¥258,000</td><td><span class="tag tag-warning">待付尾款</span></td><td><button class="btn btn-outline btn-sm">催款</button></td></tr>
+              <tr><td>#WD20261115005</td><td>郑先生 & 冯小姐</td><td>2026-11-15</td><td>森系户外</td><td>¥95,000</td><td><span class="tag tag-danger">已取消</span></td><td><button class="btn btn-outline btn-sm">详情</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 婚礼方案 -->
+      <section class="page" id="page-products">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>婚礼方案</h2>
+            <p>管理婚礼策划套餐与定制方案</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('新增方案功能待开发')">+ 新增方案</button>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🌿</div>
+              <div><h5>森系户外套餐</h5><p>草坪婚礼 · 花艺布置</p></div>
+            </div>
+            <span class="tag tag-success">热销</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥88,000</div><div class="l">起售价</div></div>
+              <div class="meta-item"><div class="v">32场</div><div class="l">已执行</div></div>
+              <div class="meta-item"><div class="v">4.9★</div><div class="l">评分</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🏮</div>
+              <div><h5>中式传统套餐</h5><p>明制/唐制 · 迎亲仪式</p></div>
+            </div>
+            <span class="tag tag-success">热销</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥128,000</div><div class="l">起售价</div></div>
+              <div class="meta-item"><div class="v">18场</div><div class="l">已执行</div></div>
+              <div class="meta-item"><div class="v">5.0★</div><div class="l">评分</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">✨</div>
+              <div><h5>极简现代套餐</h5><p>酒店宴会 · 灯光设计</p></div>
+            </div>
+            <span class="tag tag-warning">主推</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥158,000</div><div class="l">起售价</div></div>
+              <div class="meta-item"><div class="v">12场</div><div class="l">已执行</div></div>
+              <div class="meta-item"><div class="v">4.8★</div><div class="l">评分</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🏝️</div>
+              <div><h5>目的地婚礼</h5><p>海岛/海外 · 一站式</p></div>
+            </div>
+            <span class="tag tag-info">高端</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥288,000</div><div class="l">起售价</div></div>
+              <div class="meta-item"><div class="v">6场</div><div class="l">已执行</div></div>
+              <div class="meta-item"><div class="v">5.0★</div><div class="l">评分</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">📸</div>
+              <div><h5>婚纱摄影套餐</h5><p>内景+外景 · 精修50张</p></div>
+            </div>
+            <span class="tag tag-success">在售</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥6,800</div><div class="l">起售价</div></div>
+              <div class="meta-item"><div class="v">86组</div><div class="l">已拍摄</div></div>
+              <div class="meta-item"><div class="v">4.9★</div><div class="l">评分</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🎥</div>
+              <div><h5>婚礼跟拍套餐</h5><p>双机位 · 快剪+精剪</p></div>
+            </div>
+            <span class="tag tag-success">在售</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥4,500</div><div class="l">起售价</div></div>
+              <div class="meta-item"><div class="v">124场</div><div class="l">已执行</div></div>
+              <div class="meta-item"><div class="v">4.8★</div><div class="l">评分</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 新人档案 -->
+      <section class="page" id="page-members">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>新人档案</h2>
+            <p>管理新人信息、偏好与跟进记录</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('导出新人列表')">导出</button>
+          </div>
+        </div>
+
+        <div class="stats-grid four">
+          <div class="stat-card"><div class="stat-value">326</div><div class="stat-label">在档新人</div></div>
+          <div class="stat-card"><div class="stat-value">8</div><div class="stat-label">待跟进</div></div>
+          <div class="stat-card"><div class="stat-value">62%</div><div class="stat-label">转化率</div></div>
+          <div class="stat-card"><div class="stat-value">4.9★</div><div class="stat-label">平均评分</div></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header-bar"><h4>新人列表</h4></div>
+          <table>
+            <thead>
+              <tr><th>新人</th><th>婚礼日期</th><th>预算范围</th><th>偏好风格</th><th>来源渠道</th><th>跟进状态</th><th>添加时间</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="product-cell"><div class="product-thumb">张</div>张先生 & 李女士</div></td><td>2026-10-18</td><td>¥10-15万</td><td>森系户外</td><td>小红书</td><td><span class="tag tag-success">已签约</span></td><td>2026-08-12</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">王</div>王先生 & 陈女士</div></td><td>2026-10-25</td><td>¥8-12万</td><td>中式传统</td><td>朋友推荐</td><td><span class="tag tag-warning">方案确认中</span></td><td>2026-09-03</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">刘</div>刘先生 & 孙小姐</div></td><td>2026-11-01</td><td>¥15-20万</td><td>极简现代</td><td>大众点评</td><td><span class="tag tag-success">已签约</span></td><td>2026-09-15</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">周</div>周先生 & 吴小姐</div></td><td>2026-11-08</td><td>¥20-30万</td><td>目的地婚礼</td><td>抖音</td><td><span class="tag tag-info">尾款催收中</span></td><td>2026-09-22</td></tr>
+              <tr><td><div class="product-cell"><div class="product-thumb">郑</div>郑先生 & 冯小姐</div></td><td>2026-11-15</td><td>¥8-10万</td><td>森系户外</td><td>小红书</td><td><span class="tag tag-danger">已流失</span></td><td>2026-09-30</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 获客活动 -->
+      <section class="page" id="page-marketing">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>获客活动</h2>
+            <p>创建拉新、促签、裂变活动</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('创建活动功能待开发')">+ 创建活动</button>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">🎁</div>
+              <div><h5>免费试妆体验</h5><p>到店试妆即送精修3张</p></div>
+            </div>
+            <span class="tag tag-success">进行中</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">86人</div><div class="l">预约</div></div>
+              <div class="meta-item"><div class="v">24组</div><div class="l">转化签约</div></div>
+              <div class="meta-item"><div class="v">11/30</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">💰</div>
+              <div><h5>早鸟签约立减</h5><p>提前6个月签约减8888元</p></div>
+            </div>
+            <span class="tag tag-success">进行中</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥88,888</div><div class="l">已减免</div></div>
+              <div class="meta-item"><div class="v">16组</div><div class="l">参与</div></div>
+              <div class="meta-item"><div class="v">12/31</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">📱</div>
+              <div><h5>老客转介绍有礼</h5><p>推荐一对新人签约返现2000元</p></div>
+            </div>
+            <span class="tag tag-warning">即将结束</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">¥24,000</div><div class="l">已返现</div></div>
+              <div class="meta-item"><div class="v">12组</div><div class="l">成功推荐</div></div>
+              <div class="meta-item"><div class="v">10/31</div><div class="l">截止</div></div>
+            </div>
+          </div>
+          <div class="data-card">
+            <div class="data-card-top">
+              <div class="thumb">📸</div>
+              <div><h5>备婚打卡挑战</h5><p>连续7天分享备婚进度送礼品</p></div>
+            </div>
+            <span class="tag tag-info">已结束</span>
+            <div class="data-card-meta">
+              <div class="meta-item"><div class="v">156人</div><div class="l">参与</div></div>
+              <div class="meta-item"><div class="v">38组</div><div class="l">咨询转化</div></div>
+              <div class="meta-item"><div class="v">09/30</div><div class="l">已结束</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 品牌设置 -->
+      <section class="page" id="page-settings">
+        <div class="page-header">
+          <div class="page-title">
+            <h2>品牌设置</h2>
+            <p>管理品牌基本信息与业务配置</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-primary" onclick="showToast('设置已保存')">保存设置</button>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <div class="table-card form-card">
+              <h4>品牌信息</h4>
+              <div class="form-group">
+                <label>品牌名称</label>
+                <input class="form-control" type="text" value="WeddingOS 婚礼策划">
+              </div>
+              <div class="form-group">
+                <label>联系电话</label>
+                <input class="form-control" type="text" value="020-66886688">
+              </div>
+              <div class="form-group">
+                <label>门店地址</label>
+                <input class="form-control" type="text" value="广州市海珠区琶醍创意园B区">
+              </div>
+              <div class="form-group">
+                <label>品牌简介</label>
+                <textarea class="form-control">专注高端婚礼定制，拥有资深策划团队与自有花艺工坊，为每对新人打造独一无二的梦幻婚礼。</textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="table-card form-card">
+              <h4>业务配置</h4>
+              <div class="form-group">
+                <label>旺季档期上限（每月）</label>
+                <input class="form-control" type="text" value="16场">
+              </div>
+              <div class="form-group">
+                <label>默认定金比例</label>
+                <input class="form-control" type="text" value="30%">
+              </div>
+              <div class="form-group">
+                <label>尾款截止时间</label>
+                <input class="form-control" type="text" value="婚礼前7天">
+              </div>
+            </div>
+            <div class="table-card form-card" style="margin-top:20px;">
+              <h4>提供服务</h4>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 婚礼策划</label>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 婚纱摄影</label>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 婚礼跟拍</label>
+              </div>
+              <div class="form-group">
+                <label><input type="checkbox" checked> 主持/化妆</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
